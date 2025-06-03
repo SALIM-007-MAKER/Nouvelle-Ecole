@@ -3,618 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>NOUVELLE ECOLE - Salle de Jeux Futuriste</title>
-    <style>
-        /* Reset et styles de base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
-
-        body {
-            background-color: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Styles néon */
-        .neon-text {
-            text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6, 0 0 25px #0073e6;
-        }
-
-        .neon-border {
-            border: 2px solid #00f7ff;
-            box-shadow: 0 0 10px #00f7ff, inset 0 0 10px #00f7ff;
-        }
-
-        .neon-effect {
-            transition: all 0.3s ease;
-        }
-
-        .neon-effect:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #00f7ff, 0 0 30px #00f7ff;
-        }
-
-        /* Animation clignotante */
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .blink {
-            animation: blink 2s infinite;
-        }
-
-        /* Animation fluo */
-        @keyframes fluo {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-
-        .fluo-anim {
-            animation: fluo 8s linear infinite;
-        }
-
-        /* Animation slide */
-        @keyframes slideIn {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .slide-in {
-            animation: slideIn 1s ease-out forwards;
-        }
-
-        /* Header et Navigation */
-        header {
-            padding: 20px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
-            z-index: -1;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 30px;
-            background: rgba(10, 10, 20, 0.8);
-            padding: 15px;
-            border-radius: 50px;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            border: 1px solid #00f7ff;
-            box-shadow: 0 0 15px rgba(0, 247, 255, 0.5);
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.1rem;
-            padding: 10px 20px;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        nav a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 247, 255, 0.3), transparent);
-            transition: all 0.5s ease;
-        }
-
-        nav a:hover::before {
-            left: 100%;
-        }
-
-        nav a.active {
-            background: rgba(0, 247, 255, 0.2);
-            box-shadow: 0 0 10px rgba(0, 247, 255, 0.5);
-        }
-
-        /* Photo de profil */
-        .profile-container {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid #00f7ff;
-            box-shadow: 0 0 20px #00f7ff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .profile-pic:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px #00f7ff;
-        }
-
-        .profile-edit {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background-color: #00f7ff;
-            color: #0a0a0a;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 0 10px #00f7ff;
-        }
-
-        /* Titre principal */
-        .main-title {
-            font-size: 3.5rem;
-            margin: 20px 0;
-            text-align: center;
-            letter-spacing: 3px;
-        }
-
-        /* Sections */
-        section {
-            padding: 40px 20px;
-            margin: 30px 0;
-            position: relative;
-            opacity: 0;
-        }
-
-        section.visible {
-            opacity: 1;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            text-align: center;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 0 20px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #00f7ff, transparent);
-        }
-
-        /* Slider d'images */
-        .slider-container {
-            position: relative;
-            max-width: 1200px;
-            margin: 40px auto;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 247, 255, 0.5);
-        }
-
-        .slider {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            height: 500px;
-        }
-
-        .slider img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
-
-        .slider-nav {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .slider-dot {
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .slider-dot.active {
-            background: #00f7ff;
-            transform: scale(1.2);
-        }
-
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 247, 255, 0.5);
-            color: white;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            z-index: 10;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .slider-btn:hover {
-            background: rgba(0, 247, 255, 0.8);
-        }
-
-        .slider-btn.prev {
-            left: 20px;
-        }
-
-        .slider-btn.next {
-            right: 20px;
-        }
-
-        /* Grille de jeux */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .game-card {
-            background: rgba(20, 20, 40, 0.7);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .game-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #00f7ff, #ff00f7, #00f7ff);
-            z-index: -1;
-            border-radius: 12px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .game-card:hover::before {
-            opacity: 1;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0, 247, 255, 0.3);
-        }
-
-        .game-image {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            background-color: rgba(0, 247, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(0, 247, 255, 0.5);
-            font-size: 1.2rem;
-        }
-
-        .game-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .game-desc {
-            text-align: center;
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-
-        /* Services */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .service-card {
-            background: rgba(20, 20, 40, 0.7);
-            border-radius: 10px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .service-card.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .service-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 247, 255, 0.1), transparent);
-            z-index: -1;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 247, 255, 0.3);
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            color: #00f7ff;
-            margin-bottom: 20px;
-        }
-
-        .service-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .service-desc {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        /* Footer */
-        footer {
-            padding: 50px 0;
-            text-align: center;
-            background: linear-gradient(180deg, transparent, rgba(0, 10, 20, 0.9));
-            margin-top: 50px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: #00f7ff;
-        }
-
-        .footer-column p, .footer-column a {
-            color: #aaa;
-            line-height: 1.8;
-            margin-bottom: 10px;
-            display: block;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: #00f7ff;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .social-link {
-            color: #00f7ff;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 247, 255, 0.1);
-        }
-
-        .social-link:hover {
-            transform: scale(1.2);
-            color: #ff00f7;
-            background: rgba(0, 247, 255, 0.3);
-        }
-
-        .copyright {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0, 247, 255, 0.2);
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        /* Effets spéciaux */
-        .particle {
-            position: absolute;
-            background-color: #00f7ff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        /* Modal pour changer la photo */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: #1a1a2e;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 800px;
-            width: 90%;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #00f7ff;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .gallery-img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-        }
-
-        .gallery-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 10px #00f7ff;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .gallery-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-title {
-                font-size: 2.5rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .games-grid, .services-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-
-            nav ul {
-                gap: 10px;
-            }
-
-            nav a {
-                padding: 8px 15px;
-                font-size: 0.9rem;
-            }
-
-            .slider {
-                height: 350px;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 576px) {
-            .main-title {
-                font-size: 2rem;
-            }
-
-            .slider {
-                height: 250px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Effets de particules -->
@@ -633,7 +23,7 @@
         </nav>
         <div class="header-content">
             <div class="profile-container">
-                <img src="https://via.placeholder.com/150" alt="Logo NOUVELLE ECOLE" class="profile-pic" id="profilePic">
+                <img src="slider/LOGO.jpg" alt="Logo NOUVELLE ECOLE" class="profile-pic" id="profilePic">
                 <div class="profile-edit" id="editProfile">+</div>
             </div>
             <h1 class="main-title neon-text fluo-anim">NOUVELLE <span class="blink">ECOLE</span></h1>
@@ -654,6 +44,36 @@
         <div class="slider-container">
             <div class="slider" id="slider">
                 <!-- Les images seront ajoutées dynamiquement en JS -->
+                <img src="slider/page de garde.jpg" alt="Slide 1">
+                <img src="slider/GAMERS PASS.jpg" alt="Slide 2">
+                <img src="slider/ASSASSIN CREED.jpg" alt="Slide 3">
+                <img src="slider/DEAD ISLAND 2.jpg" alt="Slide 1">
+                <img src="slider/WATCH DOGS.jpg" alt="Slide 1">
+                <img src="slider/SPIDER MAN.jpg" alt="Slide 1">
+                <img src="slider/Mortel Combat.jpg" alt="Slide 1">
+                <img src="slider/FARCRY 3.jpg" alt="Slide 1">
+                <img src="slider/THE LAST OF US.jpg" alt="Slide 1">
+                <img src="slider/MISSION.jpg" alt="Slide 1">
+                <img src="slider/FORTNITE.jpg" alt="Slide 1">
+                <img src="slider/GOW REGNAROK.jpg" alt="Slide 1">
+                <img src="slider/GRAN TURISMO.jpg" alt="Slide 1">
+                <img src="slider/UNCHARTED.jpg" alt="Slide 1">
+                <img src="slider/MAX PAYNE 3.jpg" alt="Slide 1">
+                <img src="slider/grand theft.jpg" alt="Slide 1">
+                <img src="slider/JUST CAUSE 4.jpg" alt="Slide 1">
+                <img src="slider/BATTLEFRONT 2.jpg" alt="Slide 1">
+                <img src="slider/CALL OF DUTY MOBILE.jpg" alt="Slide 1">
+                <img src="slider/FIFA 22.jpg" alt="Slide 1">
+                <img src="slider/NBA.jpg" alt="Slide 1">
+                <img src="slider/SPIDER MAN.jpg" alt="Slide 1">
+                <img src="slider/HITMAN.jpg" alt="Slide 1">
+                <img src="slider/IRON MAN.jpg" alt="Slide 1">
+                <img src="slider/Black OPS 6.jpg" alt="Slide 1">
+                <img src="slider/RESIDENT EVILE 4.jpg" alt="Slide 1">
+                <img src="slider/RESIDENT VILLAGE VR MODE.jpg" alt="Slide 1">
+                <img src="slider/CONTAGION.jpg" alt="Slide 1">
+                <img src="slider/CREED RISE TO GLORY.jpg" alt="Slide 1">
+                <img src="slider/Warzone.jpg" alt="Slide 1">
             </div>
             <button class="slider-btn prev">❮</button>
             <button class="slider-btn next">❯</button>
@@ -668,55 +88,55 @@
             <!-- Carte de jeu 1 -->
             <div class="game-card">
                 <div class="game-image">
-                    [Image du Jeu 1]
+                <img src="images/Warzone.jpg" alt="" srcset="">
                 </div>
-                <h3 class="game-title">NOM DU JEU 1</h3>
-                <p class="game-desc">Description du jeu et de ses particularités.</p>
+                <h3 class="game-title">Call OF Duty: WARZONE </h3>
+                <p class="game-desc">Battle royale gratuit avec des mises à jour régulières, incluant le retour du célèbre map Verdansk en avril 2025 pour célébrer le 5e anniversaire du jeu.</p>
             </div>
 
             <!-- Carte de jeu 2 -->
             <div class="game-card">
                 <div class="game-image">
-                    [Image du Jeu 2]
+                    <img src="images/RESIDENT EVILE 4.jpg" alt="" srcset="">
                 </div>
-                <h3 class="game-title">NOM DU JEU 2</h3>
-                <p class="game-desc">Description du jeu et de ses particularités.</p>
+                <h3 class="game-title">RESIDENT EVILE 4</h3>
+                <p class="game-desc">Revivez l'histoire de Leon S. Kennedy dans ce remake du classique, avec des graphismes modernisés et une jouabilité améliorée.</p>
             </div>
 
             <!-- Carte de jeu 3 -->
             <div class="game-card">
                 <div class="game-image">
-                    [Image du Jeu 3]
+                    <img src="images/CONTAGION.jpg" alt="" srcset="">
                 </div>
-                <h3 class="game-title">NOM DU JEU 3</h3>
-                <p class="game-desc">Description du jeu et de ses particularités.</p>
+                <h3 class="game-title">CONTAGION</h3>
+                <p class="game-desc">Vivez une épidémie de zombies en VR avec une campagne solo intense, des énigmes à résoudre et un arsenal d'armes réalistes.</p>
             </div>
 
             <!-- Carte de jeu 4 -->
             <div class="game-card">
                 <div class="game-image">
-                    [Image du Jeu 4]
+                    <img src="images/NBA.jpg" alt="" srcset="">
                 </div>
-                <h3 class="game-title">NOM DU JEU 4</h3>
-                <p class="game-desc">Description du jeu et de ses particularités.</p>
+                <h3 class="game-title">NBA 2K25</h3>
+                <p class="game-desc">NBA 2K25 est la référence des jeux de basketball sur console. Avec des graphismes ultra-réalistes, des animations fluides et des modes variés comme MyCareer, MyTeam et The W, le jeu offre une immersion totale dans l’univers de la NBA. Créez votre joueur, vivez sa carrière, ou gérez une équipe entière vers la gloire.</p>
             </div>
 
             <!-- Carte de jeu 5 -->
             <div class="game-card">
                 <div class="game-image">
-                    [Image du Jeu 5]
+                    <img src="images/NEED FOR SPEED.jpg" alt="" srcset="">
                 </div>
-                <h3 class="game-title">NOM DU JEU 5</h3>
-                <p class="game-desc">Description du jeu et de ses particularités.</p>
+                <h3 class="game-title">NEED FOR SPEED</h3>
+                <p class="game-desc">Need for Speed est une série de jeux de course culte, où vitesse, adrénaline et personnalisation sont au cœur de l’expérience. Affrontez d’autres pilotes dans des courses de rue illégales, échappez à la police et améliorez vos voitures avec un style unique. Parfait pour les amateurs de sensations fortes et de belles mécaniques.</p>
             </div>
 
             <!-- Carte de jeu 6 -->
             <div class="game-card">
                 <div class="game-image">
-                    [Image du Jeu 6]
+                    <img src="images/FIFA 22.jpg" alt="" srcset="">
                 </div>
-                <h3 class="game-title">NOM DU JEU 6</h3>
-                <p class="game-desc">Description du jeu et de ses particularités.</p>
+                <h3 class="game-title">FIFA 22</h3>
+                <p class="game-desc">FIFA 22 sur PS4 est un jeu de football réaliste et immersif signé EA Sports. Il propose des graphismes améliorés, une jouabilité fluide, et plusieurs modes de jeu comme Carrière, Ultimate Team, VOLTA et Clubs Pro. Que vous aimiez gérer un club, créer votre équipe de rêve ou jouer entre amis, FIFA 22 offre une expérience complète pour tous les fans du ballon rond.</p>
             </div>
         </div>
     </section>
@@ -785,15 +205,15 @@
             </div>
             <div class="footer-column">
                 <h3>HORAIRES</h3>
-                <p>Lundi - Vendredi: 14h - 00h</p>
-                <p>Samedi: 10h - 02h</p>
+                <p>Lundi - Vendredi: 08h - 00h</p>
+                <p>Samedi: 10h - 00h</p>
                 <p>Dimanche: 10h - 00h</p>
             </div>
             <div class="footer-column">
                 <h3>CONTACT</h3>
-                <p>123 Rue du Futur, 75000 Paris</p>
-                <p>01 23 45 67 89</p>
-                <a href="mailto:contact@nouvelle-ecole.com">contact@nouvelle-ecole.com</a>
+                <p>Niamey/Niger, Ny2000 plaque Fahinta</p>
+                <p>+227 88 15 52 40</p>
+                <a href="mailto:Salimzabeiroi@gmail.com">contact@nouvelle-ecole.com</a>
             </div>
         </div>
         <div class="social-links">
@@ -820,229 +240,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Effets de particules
-        document.addEventListener('DOMContentLoaded', function() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Position aléatoire
-                const posX = Math.random() * window.innerWidth;
-                const posY = Math.random() * window.innerHeight;
-                
-                // Taille aléatoire
-                const size = Math.random() * 5 + 1;
-                
-                // Animation aléatoire
-                const duration = Math.random() * 10 + 5;
-                const delay = Math.random() * 5;
-                
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.left = `${posX}px`;
-                particle.style.top = `${posY}px`;
-                particle.style.opacity = Math.random() * 0.5 + 0.1;
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-                
-                // Créer une animation de flottement aléatoire
-                const keyframes = `
-                    @keyframes float {
-                        0% {
-                            transform: translate(0, 0);
-                            opacity: ${Math.random() * 0.5 + 0.1};
-                        }
-                        50% {
-                            transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px);
-                            opacity: ${Math.random() * 0.7 + 0.1};
-                        }
-                        100% {
-                            transform: translate(0, 0);
-                            opacity: ${Math.random() * 0.5 + 0.1};
-                        }
-                    }
-                `;
-                
-                const style = document.createElement('style');
-                style.innerHTML = keyframes;
-                document.head.appendChild(style);
-                
-                particlesContainer.appendChild(particle);
-            }
-            
-            // Gestion du changement de photo de profil
-            const profilePic = document.getElementById('profilePic');
-            const editProfile = document.getElementById('editProfile');
-            const profileModal = document.getElementById('profileModal');
-            const closeModal = document.getElementById('closeModal');
-            const galleryGrid = document.getElementById('galleryGrid');
-            
-            // Générer 30 images pour la galerie
-            for (let i = 1; i <= 30; i++) {
-                const img = document.createElement('img');
-                img.src = `https://source.unsplash.com/random/300x300/?gaming,neon,${i}`;
-                img.alt = `Option ${i}`;
-                img.classList.add('gallery-img');
-                img.addEventListener('click', function() {
-                    profilePic.src = this.src;
-                    profileModal.style.display = 'none';
-                });
-                galleryGrid.appendChild(img);
-            }
-            
-            // Ouvrir le modal
-            editProfile.addEventListener('click', function(e) {
-                e.stopPropagation();
-                profileModal.style.display = 'flex';
-            });
-            
-            profilePic.addEventListener('click', function() {
-                profileModal.style.display = 'flex';
-            });
-            
-            // Fermer le modal
-            closeModal.addEventListener('click', function() {
-                profileModal.style.display = 'none';
-            });
-            
-            window.addEventListener('click', function(e) {
-                if (e.target === profileModal) {
-                    profileModal.style.display = 'none';
-                }
-            });
-            
-            // Slider d'images
-            const slider = document.getElementById('slider');
-            const sliderNav = document.getElementById('sliderNav');
-            const prevBtn = document.querySelector('.slider-btn.prev');
-            const nextBtn = document.querySelector('.slider-btn.next');
-            let currentSlide = 0;
-            
-            // Générer 25 images pour le slider
-            for (let i = 1; i <= 25; i++) {
-                const slide = document.createElement('img');
-                slide.src = `https://source.unsplash.com/random/1200x500/?arcade,gaming,neon,${i}`;
-                slide.alt = `Slide ${i}`;
-                slider.appendChild(slide);
-                
-                const dot = document.createElement('div');
-                dot.classList.add('slider-dot');
-                if (i === 1) dot.classList.add('active');
-                dot.addEventListener('click', () => {
-                    goToSlide(i - 1);
-                });
-                sliderNav.appendChild(dot);
-            }
-            
-            const slides = document.querySelectorAll('.slider img');
-            const dots = document.querySelectorAll('.slider-dot');
-            
-            function goToSlide(n) {
-                currentSlide = (n + slides.length) % slides.length;
-                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
-                
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentSlide);
-                });
-            }
-            
-            function nextSlide() {
-                goToSlide(currentSlide + 1);
-            }
-            
-            function prevSlide() {
-                goToSlide(currentSlide - 1);
-            }
-            
-            nextBtn.addEventListener('click', nextSlide);
-            prevBtn.addEventListener('click', prevSlide);
-            
-            // Auto-slide
-            let slideInterval = setInterval(nextSlide, 5000);
-            
-            slider.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
-            });
-            
-            slider.addEventListener('mouseleave', () => {
-                slideInterval = setInterval(nextSlide, 5000);
-            });
-            
-            // Navigation
-            const navLinks = document.querySelectorAll('nav a');
-            
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Retirer la classe active de tous les liens
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Ajouter la classe active au lien cliqué
-                    this.classList.add('active');
-                    
-                    // Faire défiler jusqu'à la section correspondante
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    window.scrollTo({
-                        top: targetSection.offsetTop - 20,
-                        behavior: 'smooth'
-                    });
-                });
-            });
-            
-            // Animation au défilement
-            function checkScroll() {
-                const sections = document.querySelectorAll('section');
-                const gameCards = document.querySelectorAll('.game-card');
-                const serviceCards = document.querySelectorAll('.service-card');
-                
-                sections.forEach(section => {
-                    const sectionTop = section.getBoundingClientRect().top;
-                    if (sectionTop < window.innerHeight - 100) {
-                        section.classList.add('visible', 'slide-in');
-                    }
-                });
-                
-                gameCards.forEach((card, index) => {
-                    const cardTop = card.getBoundingClientRect().top;
-                    if (cardTop < window.innerHeight - 100) {
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, index * 100);
-                    }
-                });
-                
-                serviceCards.forEach((card, index) => {
-                    const cardTop = card.getBoundingClientRect().top;
-                    if (cardTop < window.innerHeight - 100) {
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, index * 100);
-                    }
-                });
-            }
-            
-            window.addEventListener('scroll', checkScroll);
-            window.addEventListener('load', checkScroll);
-            
-            // Animation du titre
-            const neonTitle = document.querySelector('.main-title');
-            setInterval(() => {
-                neonTitle.style.textShadow = `
-                    0 0 5px #fff, 
-                    0 0 10px #fff, 
-                    0 0 15px hsl(${Math.random() * 360}, 100%, 50%), 
-                    0 0 20px hsl(${Math.random() * 360}, 100%, 50%), 
-                    0 0 25px hsl(${Math.random() * 360}, 100%, 50%)
-                `;
-            }, 2000);
-        });
-    </script>
+    <script src="javascript.js"></script>
 </body>
 </html>
